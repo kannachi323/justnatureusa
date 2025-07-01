@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+body {
+    background-color: #f6fdf3;
+    margin: 0;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    color: #9e7a5f;
+    overflow: scroll;  
+}
