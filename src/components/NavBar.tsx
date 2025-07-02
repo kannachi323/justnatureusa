@@ -1,24 +1,39 @@
-
+import { MdLogin } from "react-icons/md"
+import { HiOutlinePencilAlt } from "react-icons/hi";
 
 export function NavBar() {
   return (
-    <div className="flex flex-row w-full h-full">
-      <div className="flex flex-row justify-end items-center gap-15 w-1/3">
-        <a href="/" className="text-2xl">Home</a>
-        <a href="/gallery" className="text-2xl">Gallery</a>
- 
-      
-      </div> 
-
-      <div className="flex flex-row w-1/3 justify-center">
-        <img src="/logo_cursive.png" alt="Logo" className="w-[256px] h-[148px] p-2" />
-      </div>
-
+    <div className="flex flex-row w-full h-full justify-between text-xl gap-10 bg-[#ffffff]">
+        <div className="flex justify-center items-center p-5">
+          <img src="/logo_cursive.png" alt="Logo" className="w-[132px] h-[76px] p-2" />
+        
+        
+        </div>
+        <div className="flex justify-evenly items-center gap-10 p-5">
+          <a href="/">Home</a>
+          <a href="/gallery">Gallery</a>
+          <a href="/about">Orchid Handbook</a>
+          <a href="/contact">Contact</a>
+         
+          <div className="flex flex-row justify-center items-center gap-5">
+            <a className="py-1 px-2 flex flex-row justify-center items-center bg-[#eaddd2] hover:bg-[#f2ebe5] border-2 rounded-md 
+              transition duration-300 ease-in-out"
+              href="/login"
+            >
+                Log In
+                <MdLogin className="ml-1 text-xl"/>
+            </a>
+            <a className="py-1 px-2 flex flex-row justify-center items-center bg-[#dbbfa7] hover:bg-[#f2ebe5] border-2 rounded-md
+                transition duration-300 ease-in-out"
+                href="/signup"
+            >
+                Sign Up
+                <HiOutlinePencilAlt className="ml-1 text-xl"/>
+            </a>
+          </div>
+        </div>
        
-      <div className="flex flex-row gap-15 w-1/3 items-center">
-        <a href="/about" className="text-2xl">Orchid Care</a>
-        <a href="/contact" className="text-2xl">Contact</a>
-      </div>
+       
     </div>
   )
 }
