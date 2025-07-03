@@ -8,8 +8,6 @@ import { IoBookmarkOutline } from "react-icons/io5";
 
 import { fetchGalleryImages, type GalleryImage } from '../utils/db';
 
-
-
 export default function Gallery() {
   const [showImageView, setShowImageView] = useState<boolean>(false);
   

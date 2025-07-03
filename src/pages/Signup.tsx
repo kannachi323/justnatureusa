@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
 import {SignUpWithEmailPassword} from '../utils/auth';
+import { useAuth } from '../hooks/useAuth';
 
 export default function SignUp() {
   const navigate = useNavigate();
+  const { setIsAuthenticated, setUser } = useAuth();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -25,6 +27,8 @@ export default function SignUp() {
 
     const res = await SignUpWithEmailPassword(formData.email, formData.password);
     if (res) {
+      setIsAuthenticated(true);
+      setUser({ id: res.user.uid, username: res.user.email || '' });
       navigate('/');
     } else {
       alert("Sign up failed. Please check your email and password.");

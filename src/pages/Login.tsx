@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { LogInWithEmailPassword } from '../utils/auth';
+import { useAuth } from '../hooks/useAuth';
+
 export default function Login() {
   const navigate = useNavigate();
+  const { setIsAuthenticated, setUser } = useAuth();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -23,8 +26,9 @@ export default function Login() {
 
     const res = await LogInWithEmailPassword(formData.email, formData.password);
     if (res) {
+      setIsAuthenticated(true);
+      setUser({ id: res.user.uid, username: res.user.email || '' });
       navigate('/');
-      //TODO: change the navbar to show profile icon
     } else {
       alert("Login failed. Please check your email and password.");
     }
