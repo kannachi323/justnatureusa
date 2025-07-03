@@ -5,11 +5,11 @@ import { NavBar } from "./components/NavBar.tsx";
 export default function App() {
   return (
     <>
-      <div className="w-screen h-[10vh]">
+      <div className="h-[10vh] max-w-screen max-h-full">
         <NavBar />
       </div>
 
-      <div className="w-screen h-[90vh]">
+      <div className="h-[90vh] max-w-screen max-h-full">
         <Outlet />
       </div>
     

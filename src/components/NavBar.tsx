@@ -6,7 +6,7 @@ import { CgProfile } from "react-icons/cg";
 export function NavBar() {
   const isAuthenticated = true;
   return (
-    <div className="flex flex-row w-full h-full justify-between text-xl gap-10 bg-[#ffffff]">
+    <div className="flex flex-row w-full h-full justify-between text-lg gap-10 bg-[#ffffff]">
         <div className="flex justify-center items-center p-5 gap-10">
           <img src="/logo_cursive.png" alt="Logo" className="w-[132px] h-[80px] p-2" />
           <a href="/">Home</a>

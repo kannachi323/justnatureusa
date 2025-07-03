@@ -15,7 +15,7 @@ export default function Gallery() {
   
 
   return (
-    <div className="flex flex-row h-full">
+    <div className="flex flex-row justify-evenly w-full h-full p-5">
         <Timeline />
 
      
@@ -31,9 +31,9 @@ function Timeline() {
   const year = "2025";
 
   return (
-    <div className="flex flex-col h-full w-1/12 items-center gap-5 justify-evenly p-5">
-      <h1>{year}</h1>
-      <div className="relative flex flex-col justify-center items-center h-full w-24">
+    <div className="flex flex-col h-full w-1/12 items-center gap-10">
+      <h1 className="leading-none">{year}</h1>
+      <div className="relative flex flex-col justify-center items-center h-10/12 w-24">
         <div className="absolute left-1/4 top-0 h-full w-[2px] bg-black" />
         
         {months.map((month, idx) => {
@@ -75,25 +75,22 @@ function GalleryImages({showImageView, setShowImageView} : {showImageView: boole
   
 
   return (
-    <div className="flex-1 w-5/6 grid grid-cols-4 auto-rows-[200px] gap-5 overflow-y-auto pr-5 pb-5">
-    
+    <div className="w-11/12 grid grid-cols-4 auto-rows-[200px] overflow-y-auto justify-items-center items-center flex-1">
       {galleryImages?.map((img, idx) => (
-        <div key={idx} className="relative aspect-[3/2] w-full h-full overflow-hidden cursor-pointer rounded-lg"
+        <div key={idx} className="relative w-[320px] h-[200px] overflow-hidden cursor-pointer rounded-lg"
           onMouseEnter={() => setHoverIdx(idx)}
           onMouseLeave={() => setHoverIdx(-1)}
           onClick={() => toggle(img)}
         >
-            
           {hoverIdx == idx && (
             <FaEye className="absolute bottom-0 right-0 m-2 text-white text-2xl" />
           )}
           <img
             src={img.src}
             alt={`orchid-${idx}`}
-            className="w-[320px] h-[200px] object-cover transition-opacity duration-300 ease-in-out hover:opacity-80 rounded-lg"
+            className="w-[320px] h-[200px] object-cover"
           />
         </div>
-        
       ))}
       {showImageView && selectedImage && <ImageView img={selectedImage} setShowImageView={setShowImageView}/>}
     </div>
