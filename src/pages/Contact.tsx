@@ -8,7 +8,7 @@ export default function Contact() {
 
     return (
         <>
-            <div className="mx-auto grid grid-cols-2 gap-10 p-5 w-3/4 md:w-2/3 bg-[#e9f3e4] rounded-md mb-10">
+            <div className="mx-auto grid grid-cols-2 gap-10 p-5 w-3/4 md:w-2/3 bg-[#fefbfa] rounded-md mb-10">
                 <section className="flex flex-col justify-between">
                     <h1 className="text-3xl">Hi there!</h1>
                     <p className="text-sm text-[#8c7a66]">
@@ -53,7 +53,7 @@ export default function Contact() {
 
 
             <div className="flex flex-row items-center justify-evenly gap-5 w-3/4 md:w-2/3 mx-auto my-5rounded-md">
-                <div className="grid grid-cols-2 gap-5 items-start justify-start mx-auto w-1/2 p-5 mb-10 bg-[#e9f3e4] rounded-md">
+                <div className="grid grid-cols-2 gap-5 items-start justify-start mx-auto w-1/2 p-5 mb-10 bg-[#fefbfa] rounded-md">
                     <div className="col-span-2 text-center">
                         <h1 className="text-[#ccab8f] text-3xl font-extrabold pb-0">Hours of Operation</h1>
                         <h2 className="text-[#ac9d92] italic">by appointment only</h2>
@@ -80,7 +80,7 @@ export default function Contact() {
                     </ul>
                 </div>
 
-                <div className="flex flex-col items-center justify-start mx-auto p-5 w-1/2 bg-[#e9f3e4] rounded-md self-start">
+                <div className="flex flex-col items-center justify-start mx-auto p-5 w-1/2 bg-[#fefbfa] rounded-md self-start">
                     <h1 className="text-[#ccab8f] text-2xl font-extrabold text-center">Schedule an Appointment</h1>
                     <p className="text-sm text-[#8c7a66] mt-2 text-center">
                         Want to visit our store?       

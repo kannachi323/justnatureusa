@@ -4,7 +4,7 @@ export default function Home() {
     <>
       <div className="relative w-full">
         <img
-          src={'/IMG_4777.jpeg'}
+          src={'/2.jpeg'}
           alt={`orchid`}
           className="w-screen h-[60vh] object-cover"
         />
@@ -18,7 +18,7 @@ export default function Home() {
         
         <div className="w-1/2 h-full flex justify-center items-center">
           <img
-            src={'/IMG_4777.jpeg'}
+            src={'/2.jpeg'}
             alt={`orchid`}
             className="w-3/4 object-cover rounded-lg"
           />
@@ -30,7 +30,7 @@ export default function Home() {
       <div className="relative w-full bg-[#f8f8f3] flex flex-row justify-center items-center p-5">
         <div className="w-1/2 h-full flex justify-center items-center">
           <img
-            src={'/IMG_4777.jpeg'}
+            src={'/2.jpeg'}
             alt={`orchid`}
             className="w-3/4 object-cover rounded-lg"
           />

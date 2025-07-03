@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { FaEye } from "react-icons/fa";
 import { MdClose } from 'react-icons/md';
-import { TiHeartFullOutline } from "react-icons/ti";
+
 import { TiHeartOutline } from "react-icons/ti";
-import { IoBookmark } from "react-icons/io5";
+
 import { IoBookmarkOutline } from "react-icons/io5";
 
-import { GetImage } from '../utils/storage';
+import { fetchGalleryImages, type GalleryImage } from '../utils/db';
+
 
 
 export default function Gallery() {
@@ -18,7 +19,7 @@ export default function Gallery() {
         <Timeline />
 
      
-        <GridImages showImageView={showImageView} setShowImageView={setShowImageView}/>
+        <GalleryImages showImageView={showImageView} setShowImageView={setShowImageView}/>
  
     </div>
   );
@@ -56,31 +57,13 @@ function Timeline() {
   );
 }
 
-type GalleryImage = {
-  src: string;
-  isLiked: boolean;
-  isBookmarked: boolean;
-  imageID: number;
-};
-
-function GridImages({showImageView, setShowImageView} : {showImageView: boolean, setShowImageView: (b : boolean) => void}) {
-  async function fetchImages(setGridImages: (images: GalleryImage[]) => void) {
-    const images: GalleryImage[] = []
-    const url = await GetImage("3.jpg");
-    
-    if (url) {
-      images.push({ src: url, isLiked: false, isBookmarked: false, imageID: 1 });
-    }
-
-    setGridImages(images);
-
-  }
+function GalleryImages({showImageView, setShowImageView} : {showImageView: boolean, setShowImageView: (b : boolean) => void}) {
 
   useEffect(() => {
-    fetchImages(setGridImages)
+    fetchGalleryImages(setGalleryImages)
   }, [])
 
-  const [gridImages, setGridImages] = useState<GalleryImage[]>();
+  const [galleryImages, setGalleryImages] = useState<GalleryImage[]>();
 
   const [hoverIdx, setHoverIdx] = useState<number>(-1);
   const [selectedImage, setSelectedImage] = useState<GalleryImage>();
@@ -89,24 +72,28 @@ function GridImages({showImageView, setShowImageView} : {showImageView: boolean,
     setShowImageView(true);
     setSelectedImage(img);
   }
+  
 
   return (
     <div className="flex-1 w-5/6 grid grid-cols-4 auto-rows-[200px] gap-5 overflow-y-auto pr-5 pb-5">
-      {gridImages?.map((img, idx) => (
-        <div key={idx} className="relative w-full h-full overflow-hidden cursor-pointer rounded-lg"
+    
+      {galleryImages?.map((img, idx) => (
+        <div key={idx} className="relative aspect-[3/2] w-full h-full overflow-hidden cursor-pointer rounded-lg"
           onMouseEnter={() => setHoverIdx(idx)}
           onMouseLeave={() => setHoverIdx(-1)}
           onClick={() => toggle(img)}
         >
+            
           {hoverIdx == idx && (
             <FaEye className="absolute bottom-0 right-0 m-2 text-white text-2xl" />
           )}
           <img
             src={img.src}
             alt={`orchid-${idx}`}
-            className="w-full h-full object-cover"
+            className="w-[320px] h-[200px] object-cover transition-opacity duration-300 ease-in-out hover:opacity-80 rounded-lg"
           />
         </div>
+        
       ))}
       {showImageView && selectedImage && <ImageView img={selectedImage} setShowImageView={setShowImageView}/>}
     </div>
@@ -114,15 +101,6 @@ function GridImages({showImageView, setShowImageView} : {showImageView: boolean,
 }
 
 function ImageView({setShowImageView, img} : {setShowImageView: (b : boolean) => void, img: GalleryImage}) {
-  const [showHeart, setShowHeart] = useState<boolean>(false);
-  const [showBookmark, setShowBookmark] = useState<boolean>(false);
-
-  useEffect(() => {
-    setShowHeart(img.isLiked);
-    setShowBookmark(img.isBookmarked);
-  }, [img])
-
-
   return (
     <div className="absolute inset-0 bg-black/50 flex justify-center items-center p-10">
       <MdClose className="absolute text-4xl right-0 top-0 m-2 text-white" 
@@ -136,15 +114,14 @@ function ImageView({setShowImageView, img} : {setShowImageView: (b : boolean) =>
           className="relative w-full h-full object-cover rounded-lg rounded-tr-none z-[999]"
         />
         <div className="absolute right-0 top-0 translate-x-[50px] w-[56px] h-[128px] bg-[#f6fcf4] rounded-lg flex flex-col justify-evenly items-center z-0">
-          {showHeart ? 
-            (<TiHeartFullOutline onClick={() => setShowHeart(false)} className="text-4xl text-red-500" />) : 
-            (<TiHeartOutline onClick={() => setShowHeart(true)} className="text-4xl" />) 
-          }
-          {
-            showBookmark ? 
-            (<IoBookmark onClick={() => setShowBookmark(false)} className="text-4xl text-yellow-500" />) : 
-            (<IoBookmarkOutline onClick={() => setShowBookmark(true)} className="text-4xl" />)
-          }
+          
+            <TiHeartOutline className="text-4xl" />
+            <b>{img.numLikes}</b>
+      
+         
+            <IoBookmarkOutline className="text-4xl" />
+            <b>{img.numBookmarks}</b>
+      
         </div>
       </div>
      

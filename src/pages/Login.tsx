@@ -24,12 +24,12 @@ export default function Login() {
     const res = await LogInWithEmailPassword(formData.email, formData.password);
     if (res) {
       navigate('/');
+      //TODO: change the navbar to show profile icon
     } else {
       alert("Login failed. Please check your email and password.");
     }
 
-    
-
+   
     setFormData({ email: '', password: '' });
   }
 
