@@ -5,7 +5,14 @@ import { TiHeartOutline } from "react-icons/ti";
 import { IoBookmarkOutline } from "react-icons/io5";
 
 import { Loading } from '../components/Loading';
-import { fetchGalleryImages, type GalleryImage } from '../utils/db';
+import { fetchItems, type BaseItem } from '../utils/db';
+
+
+type GalleryImage = BaseItem & {
+  numLikes: number;
+  numBookmarks: number;
+};
+
 
 export default function Gallery() {
   const [showImageView, setShowImageView] = useState<boolean>(false);
@@ -58,7 +65,14 @@ function Timeline() {
 function GalleryImages({showImageView, setShowImageView} : {showImageView: boolean, setShowImageView: (b : boolean) => void}) {
 
   useEffect(() => {
-    fetchGalleryImages(setGalleryImages)
+    async function fetchGalleryImages() {
+      try {
+        await fetchItems("gallery", setGalleryImages)
+      } catch (error) {
+        console.error("Error fetching gallery images:", error);
+      }
+    }
+    fetchGalleryImages();
   }, [])
 
   const [galleryImages, setGalleryImages] = useState<GalleryImage[]>();

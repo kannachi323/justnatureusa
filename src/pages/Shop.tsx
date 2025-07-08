@@ -5,80 +5,81 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 
 
 import { GetImage } from "../utils/storage";
+import { fetchItems, type BaseItem } from "../utils/db";
+import { Loading } from "../components/Loading";
+
+type ShopItem = BaseItem &{
+  numLikes: number;
+  numBookmarks: number;
+};
 
 export default function Shop() {
   const [showFilters, setShowFilters] = useState<boolean>(true);
+  const [shopItems, setShopItems] = useState<ShopItem[]>()
+
+  useEffect(() => {
+    async function fetchShopItems() {
+      try {
+        await fetchItems<ShopItem>("gallery", setShopItems);
+   
+      } catch (error) {
+        console.error("Error fetching shop items:", error);
+      }
+    }
+    fetchShopItems();
+  }, [])
+
+  if (!shopItems || shopItems.length === 0) {
+      return (
+        <div className="w-full h-full flex justify-center items-center">
+          <Loading />
+        </div>
+      )
+    }
+    
   return (
     <div className="w-full h-full flex flex-col">
-      <div className="relative w-full h-1/2 flex items-center justify-center">
+      <div className="relative w-full h-1/3 flex items-center justify-center">
         <ShopBanner />
       </div>
 
-      <div className="relative w-full flex flex-row">
-        <div className="w-1/5 h-full flex flex-col p-5">
+      <div className="relative w-full h-2/3 flex flex-row">
+        <div className="w-1/5 flex flex-col p-5">
           <FilterBar showFilters={showFilters}/>
         </div>
 
-          <div className="relative w-4/5 h-full bg-red-50">
+        <div className="w-4/5 h-full flex flex-col">
+
+          <div className="sticky top-0 w-full p-1 flex bg-white">
             <button 
+              className="flex items-center justify-center hover:text-[#e4d7cd] transition-colors duration-300"
               onClick={() => setShowFilters(!showFilters)} 
-              className="sticky top-0 bg-white p-2 z-10 w-full"
             >
               {showFilters ? <FaToggleOn /> : <FaToggleOff />}
               <p>Show filters</p>
             </button>
+          </div>
 
-            {/* Lots of content to scroll */}
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
-            <p>adsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadfadsfadf</p>
+          <div className="grid grid-cols-3 auto-rows-[50%] gap-5 p-5">
+            {shopItems.map((item, idx) => (
+              <div
+                key={idx}
+                className="h-full flex flex-col items-center bg-[#dfdede]/20"
+              >
+                <img
+                    src={item.src}
+                    alt="item"
+                    className="w-full h-2/3 object-cover"
+                  />
+                <h3 className="text-lg font-semibold">{item.id}</h3>
+                <p className="text-gray-600">${item.id}</p>
+              </div>
+            ))}
+           
+          </div>
+  
 
-            {/* ...more content here... */}
-   
-
-        </div>
+      </div>
 
       </div>
       
