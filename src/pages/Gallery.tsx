@@ -1,23 +1,23 @@
 import { useState, useEffect } from 'react';
 import { FaEye } from "react-icons/fa";
 import { MdClose } from 'react-icons/md';
-
 import { TiHeartOutline } from "react-icons/ti";
-
 import { IoBookmarkOutline } from "react-icons/io5";
 
+import { Loading } from '../components/Loading';
 import { fetchGalleryImages, type GalleryImage } from '../utils/db';
 
 export default function Gallery() {
   const [showImageView, setShowImageView] = useState<boolean>(false);
   
-
   return (
     <div className="flex flex-row justify-evenly w-full h-full p-5">
         <Timeline />
 
      
+        
         <GalleryImages showImageView={showImageView} setShowImageView={setShowImageView}/>
+        
  
     </div>
   );
@@ -70,6 +70,14 @@ function GalleryImages({showImageView, setShowImageView} : {showImageView: boole
     setShowImageView(true);
     setSelectedImage(img);
   }
+
+  if (!galleryImages || galleryImages.length === 0) {
+    return (
+      <div className="w-full h-full flex justify-center items-center">
+        <Loading />
+      </div>
+    )
+  }
   
 
   return (
@@ -108,7 +116,7 @@ function ImageView({setShowImageView, img} : {setShowImageView: (b : boolean) =>
           alt={`orchid`}
           className="relative w-full h-full object-cover rounded-lg rounded-tr-none z-[999]"
         />
-        <div className="absolute right-0 top-0 translate-x-[50px] w-[56px] h-[128px] bg-[#f6fcf4] rounded-lg flex flex-col justify-evenly items-center z-0">
+        <div className="absolute right-0 top-0 translate-x-[50px] w-[56px] h-[128px] bg-[#f6fcf4]/80 rounded-lg flex flex-col justify-evenly items-center z-0">
           
             <TiHeartOutline className="text-4xl" />
             <b>{img.numLikes}</b>

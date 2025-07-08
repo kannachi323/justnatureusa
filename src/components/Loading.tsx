@@ -1,7 +1,6 @@
 import animations from "./animations.module.css";
 
 
-
 export function Loading() {
     return (
         <div className="w-full h-full flex items-center justify-center">

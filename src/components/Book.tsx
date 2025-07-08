@@ -1,11 +1,11 @@
 import HTMLFlipBook from 'react-pageflip';
 
 import { useRef } from 'react';
-import { OrchidCareOne, OrchidCareTwo } from './OrchidCare';
-import { WhatWeOfferOne, WhatWeOfferTwo } from './WhatWeOffer';
-import { FrontCover } from './FrontCover';
-import { OrchidDefinition, TableOfContents } from './TableOfContents';
-import { getBookDimensions, useOnStateChange, handlePageFlip, type BookState, type HTMLFlipBookRef } from './helper';
+import { OrchidCareOne, OrchidCareTwo } from './Book/OrchidCare';
+import { WhatWeOfferOne, WhatWeOfferTwo } from './Book/WhatWeOffer';
+import { FrontCover } from './Book/FrontCover';
+import { OrchidDefinition, TableOfContents } from './Book/TableOfContents';
+import { getBookDimensions, useOnStateChange, handlePageFlip, type BookState, type HTMLFlipBookRef } from './Book/helper';
 
 
 export interface Props {

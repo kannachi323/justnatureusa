@@ -12,10 +12,9 @@ export function NavBar() {
           <img src="/logo_cursive.png" alt="Logo" className="w-[132px] h-[80px] p-2" />
           <a href="/">Home</a>
           <a href="/gallery">Gallery</a>
-          <a href="/orchid-handbook">Orchid Handbook</a>
+          <a href="/shop">Shop</a>
+          <a href="/orchid-handbook">The Orchid Handbook</a>
           <a href="/contact">Contact</a>
-        
-        
         </div>
   
           
