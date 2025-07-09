@@ -8,7 +8,7 @@ export default function Contact() {
 
     return (
         <>
-            <div className="mx-auto grid grid-cols-2 gap-10 p-5 w-3/4 md:w-2/3 bg-[#fefbfa] rounded-md mb-10">
+            <div className="mx-auto grid grid-cols-2 gap-10 p-5 h-[90vh] w-3/4 md:w-2/3 bg-[#fefbfa] rounded-md mb-10">
                 <section className="flex flex-col justify-between">
                     <h1 className="text-3xl">Hi there!</h1>
                     <p className="text-sm text-[#8c7a66]">

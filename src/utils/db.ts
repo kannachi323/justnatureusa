@@ -39,7 +39,9 @@ export async function fetchItems<T extends BaseItem>(
 
     const items: T[] = [];
     for await (const result of promises) {
-      if (result) items.push(result);
+      if (result) {
+        items.push(result);
+      }
     }
 
     setItems(items);
@@ -48,3 +50,47 @@ export async function fetchItems<T extends BaseItem>(
     setItems([]);
   }
 }
+
+export async function fetchItemsV2<T extends BaseItem>(
+  collectionName: string,
+  setItems: (items: T[] | undefined) => void,
+  storagePathField: keyof T = 'src', // field in doc pointing to storage path
+  orderField: string = 'timestamp'
+) {
+  try {
+    const colRef = collection(db, collectionName);
+    const q = query(colRef, orderBy(orderField, 'desc'));
+    const querySnapshot = await getDocs(q);
+
+    const promises = querySnapshot.docs.map(async (doc) => {
+      const data = doc.data() as T;
+
+      // get the path to storage image, e.g. 'gallery/image1.jpg'
+      const src = data[storagePathField] as unknown as string;
+      
+  
+
+      if (src) {
+        return {
+          ...data,
+          src: src, // override src with full url
+        } as T;
+      }
+
+      return null;
+    });
+
+    const items: T[] = [];
+    for await (const result of promises) {
+      if (result) {
+        items.push(result);
+      }
+    }
+
+    setItems(items);
+  } catch (error) {
+    console.error(`Error fetching items from ${collectionName}:`, error);
+    setItems([]);
+  }
+}
+

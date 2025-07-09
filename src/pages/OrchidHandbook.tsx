@@ -21,7 +21,7 @@ export default function OrchidHandbook() {
   });
 
   return (
-    <div className="relative flex flex-col items-center justify-center h-full w-full overflow-hidden">
+    <div className="relative flex flex-col items-center justify-center h-[90vh] w-full overflow-hidden">
       <div className={`
         absolute left-0 top-1/2 transform -translate-y-1/2 w-1/2 flex flex-col justify-center items-center
         transition-transform duration-300 ease-in-out

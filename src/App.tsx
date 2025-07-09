@@ -2,18 +2,24 @@ import { Outlet } from "react-router"
 
 import { NavBar } from "./components/NavBar";
 import { AuthProvider } from "./contexts/AuthProvider";
+import { Footer } from "./components/Footer";
 
 export default function App() {
   return (
     <AuthProvider>
-      <div className="h-[10vh] max-w-screen max-h-full">
-          <NavBar />
-      </div>
+      <header className="h-[10vh]">
+        <NavBar />
+      </header>
 
-      <div className="h-[90vh] max-w-screen max-h-full">
+      <main className="flex-grow">
         <Outlet />
-      </div>
-    </AuthProvider> 
+      </main>
+
+      <footer>
+        <Footer />
+      </footer>
+      
+    </AuthProvider>
   )
 }
 

@@ -18,14 +18,9 @@ export default function Gallery() {
   const [showImageView, setShowImageView] = useState<boolean>(false);
   
   return (
-    <div className="flex flex-row justify-evenly w-full h-full p-5">
-        <Timeline />
-
-     
-        
-        <GalleryImages showImageView={showImageView} setShowImageView={setShowImageView}/>
-        
- 
+    <div className="flex flex-row justify-evenly w-full h-[90vh] p-5">
+      <Timeline />
+      <GalleryImages showImageView={showImageView} setShowImageView={setShowImageView}/>
     </div>
   );
 }
@@ -36,7 +31,7 @@ function Timeline() {
   const year = "2025";
 
   return (
-    <div className="flex flex-col h-full w-1/12 items-center gap-10">
+    <div className="flex flex-col h-full w-1/12 items-center justify-center gap-10">
       <h1 className="leading-none">{year}</h1>
       <div className="relative flex flex-col justify-center items-center h-10/12 w-24">
         <div className="absolute left-1/4 top-0 h-full w-[2px] bg-black" />
@@ -95,9 +90,9 @@ function GalleryImages({showImageView, setShowImageView} : {showImageView: boole
   
 
   return (
-    <div className="w-11/12 grid grid-cols-4 auto-rows-[200px] overflow-y-auto justify-items-center items-center flex-1">
+    <div className="w-11/12 grid grid-cols-4 overflow-y-scroll justify-items-center items-center gap-5 max-w-full p-2">
       {galleryImages?.map((img, idx) => (
-        <div key={idx} className="relative w-[320px] h-[200px] overflow-hidden cursor-pointer rounded-lg"
+        <div key={idx} className="relative w-[320px] h-[256px] overflow-hidden cursor-pointer rounded-lg"
           onMouseEnter={() => setHoverIdx(idx)}
           onMouseLeave={() => setHoverIdx(-1)}
           onClick={() => toggle(img)}
@@ -108,7 +103,7 @@ function GalleryImages({showImageView, setShowImageView} : {showImageView: boole
           <img
             src={img.src}
             alt={`orchid-${idx}`}
-            className="w-[320px] h-[200px] object-cover"
+            className="w-[320px] h-[256px] object-cover"
           />
         </div>
       ))}

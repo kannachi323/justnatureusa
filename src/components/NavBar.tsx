@@ -5,6 +5,10 @@ import { useAuth } from "../hooks/useAuth";
 
 export function NavBar() {
   const { isAuthenticated, user } = useAuth();
+
+  if (!isAuthenticated) {
+    return undefined;
+  }
   
   return (
     <div className="flex flex-row w-full h-full justify-between items-center text-lg gap-10 bg-[#ffffff]">

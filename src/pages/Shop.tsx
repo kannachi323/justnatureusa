@@ -4,9 +4,11 @@ import { FaToggleOn } from "react-icons/fa6";
 import { RiArrowDropDownLine } from "react-icons/ri";
 
 
+
 import { GetImage } from "../utils/storage";
 import { fetchItems, type BaseItem } from "../utils/db";
 import { Loading } from "../components/Loading";
+import { SortByDropdown } from "../components/Shop/SortByDropdown";
 
 type ShopItem = BaseItem &{
   numLikes: number;
@@ -14,7 +16,6 @@ type ShopItem = BaseItem &{
 };
 
 export default function Shop() {
-  const [showFilters, setShowFilters] = useState<boolean>(true);
   const [shopItems, setShopItems] = useState<ShopItem[]>()
 
   useEffect(() => {
@@ -29,42 +30,40 @@ export default function Shop() {
     fetchShopItems();
   }, [])
 
-  if (!shopItems || shopItems.length === 0) {
+  if (!shopItems || shopItems.length <= 0) {
       return (
-        <div className="w-full h-full flex justify-center items-center">
-          <Loading />
-        </div>
+        <Loading />
       )
     }
     
   return (
-    <div className="w-full h-full flex flex-col">
-      <div className="relative w-full h-1/3 flex items-center justify-center">
+    <div className="w-full flex flex-col">
+
+      <div className="relative w-full h-[50vh] flex items-center justify-center">
         <ShopBanner />
       </div>
 
-      <div className="relative w-full h-2/3 flex flex-row">
-        <div className="w-1/5 flex flex-col p-5">
-          <FilterBar showFilters={showFilters}/>
+      
+
+      <div className="w-full flex flex-row mb-5">
+       
+        <div className="w-1/5 h-screen sticky top-0 overflow-y-auto p-5 pr-0">
+          <FilterBar />
         </div>
 
-        <div className="w-4/5 h-full flex flex-col">
 
-          <div className="sticky top-0 w-full p-1 flex bg-white">
-            <button 
-              className="flex items-center justify-center hover:text-[#e4d7cd] transition-colors duration-300"
-              onClick={() => setShowFilters(!showFilters)} 
-            >
-              {showFilters ? <FaToggleOn /> : <FaToggleOff />}
-              <p>Show filters</p>
-            </button>
+
+        <div className="w-4/5 flex flex-col">
+
+          <div className="sticky top-0 w-full p-4 flex justify-end bg-white">
+            <SortByDropdown />
           </div>
 
-          <div className="grid grid-cols-3 auto-rows-[50%] gap-5 p-5">
+          <div className="grid grid-cols-3 auto-rows-[480px] gap-5 px-10">
             {shopItems.map((item, idx) => (
               <div
                 key={idx}
-                className="h-full flex flex-col items-center bg-[#dfdede]/20"
+                className="h-full flex-col items-center bg-[#dfdede]/20"
               >
                 <img
                     src={item.src}
@@ -113,7 +112,7 @@ export function ShopBanner() {
     <>
       {/* Blurred placeholder */}
       <div
-        className="absolute inset-0 bg-cover bg-center filter blur-xl scale-100 transition-opacity duration-700"
+        className="absolute inset-0 bg-cover bg-center filter blur-xl scale-100 transition-opacity duration-300"
         style={{ backgroundImage: `url(${bannerImage})`, opacity: isLoaded ? 0 : 1 }}
       />
 
@@ -141,7 +140,8 @@ export function ShopBanner() {
 }
 
 
-export function FilterBar({showFilters}: {showFilters: boolean}) {
+export function FilterBar() {
+  const [showFilters, setShowFilters] = useState<boolean>(true);
 
 
   const arrangementTypes = [
@@ -173,32 +173,19 @@ export function FilterBar({showFilters}: {showFilters: boolean}) {
     { name: "6+ Orchids" },
   ];
 
-  const fullfillmentOptions = [
-    { name: "Pickup" },
-    { name: "Delivery" },
-  ]
-
 
   return (
-    <div className="sticky top-0 w-full flex flex-col">
-      
-
-      <ul className="border-b-2 border-b-[#685748] w-full text-lg flex flex-col items-center justify-center">
-        {fullfillmentOptions.map((item, index) => (
-            <li key={index} className="flex w-full items-center justify-between p-2 cursor-pointer">
-              <label className="flex items-center space-x-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  className="appearance-none w-5 h-5 border border-[#685748] rounded-sm checked:bg-[#685748] checked:border-transparent transition-colors duration-200 flex items-center justify-center"
-                />
-                <span className="text-[#685748] hover:text-[#e4d7cd]">{item.name}</span>
-              </label>
-            </li>
-          ))}
-        </ul>
-
+    <div className="w-full flex flex-col space-y-2">
+      <button 
+        className="flex items-center justify-center text-xl gap-5 cursor-pointer"
+        onClick={() => setShowFilters(!showFilters)} 
+      >
+          <p>Show Filters</p>
+          {showFilters ? <FaToggleOn className="text-2xl"/> : <FaToggleOff className="text-2xl"/>}
+          
+      </button>
       {showFilters && 
-        <ul className="w-full text-lg p-4 overflow-y-scroll">
+        <ul className="w-full h-full text-lg overflow-y-scroll">
           <li className="relative w-full flex flex-col items-center justify-center rounded-lg p-2">
             <FilterDropdown label={"Arrangement Types"} items={arrangementTypes} />
           </li>
@@ -238,33 +225,39 @@ function FilterDropdown({label, items}: FilterDropdownProps) {
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
   return (
     <>
-      <span className="inline-flex items-center justify-between w-full cursor-pointer p-2 hover:text-[#e4d7cd] transition-colors duration-300">
+      <span className="inline-flex items-center justify-between w-full cursor-pointer hover:text-[#e4d7cd] transition-colors duration-300 select-none"
+        onClick={() => setShowDropdown(!showDropdown)}
+      >
         <b>{label}</b>
-        <RiArrowDropDownLine className={`text-2xl ml-2 cursor-pointer ${showDropdown ? 'rotate-180' : 'rotate-0'}`} onClick={() => setShowDropdown(!showDropdown)} />
+        <RiArrowDropDownLine className={`text-2xl ml-2 cursor-pointer ${showDropdown ? 'rotate-180' : 'rotate-0'}`} />
       </span>
       {showDropdown && (
         <ul className="w-full">
-          {items.map((item, index) => (
-            <li key={index} className="flex w-full items-center justify-between p-2 cursor-pointer">
-              <label className="flex items-center space-x-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  className="appearance-none w-5 h-5 border border-[#685748] rounded-sm checked:bg-[#685748] checked:border-transparent transition-colors duration-200 flex items-center justify-center"
-                />
-                <span className="text-[#685748] hover:text-[#e4d7cd]">{item.name}</span>
-              </label>
-            </li>
-          ))}
+          <li className="flex flex-col w-full cursor-pointer">
+            {items.map((item, index) => (
+              <FilterDropdownItem key={index} item={item} />
+            ))}
+          </li>
         </ul>
-
-
-
       )}
-    
-      
-
-
     </>
     
   )
 }
+
+function FilterDropdownItem({item}: {item: FilterItem}) {
+  return (
+    <>
+      <label className="flex items-center space-x-2 cursor-pointer mt-3">
+        <input
+          type="checkbox"
+          className="appearance-none w-5 h-5 border border-[#685748] rounded-sm checked:bg-[#685748] checked:border-transparent transition-colors duration-200 flex items-center justify-center"
+        />
+        <span className="text-[#685748] hover:text-[#e4d7cd]">{item.name}</span>
+      </label>
+    </>
+  )
+}
+
+
+
