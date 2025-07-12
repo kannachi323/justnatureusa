@@ -4,12 +4,12 @@ import { useAuth } from "../hooks/useAuth";
 
 
 export function NavBar() {
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, user, loading } = useAuth();
 
-  if (!isAuthenticated) {
+  if (loading) {
     return undefined;
   }
-  
+
   return (
     <div className="flex flex-row w-full h-full justify-between items-center text-lg gap-10 bg-[#ffffff]">
         <div className="flex justify-center items-center p-5 gap-10">
@@ -50,12 +50,8 @@ export function NavBar() {
       
           </div>
 
-
-
         )}
-        
-       
-       
+
     </div>
   )
 }

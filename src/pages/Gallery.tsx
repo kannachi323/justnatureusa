@@ -87,10 +87,9 @@ function GalleryImages({showImageView, setShowImageView} : {showImageView: boole
       </div>
     )
   }
-  
 
   return (
-    <div className="w-11/12 grid grid-cols-4 overflow-y-scroll justify-items-center items-center gap-5 max-w-full p-2">
+    <div className="w-11/12 grid grid-cols-4 auto-rows-fr overflow-y-scroll justify-items-center items-center gap-5 max-w-full p-2">
       {galleryImages?.map((img, idx) => (
         <div key={idx} className="relative w-[320px] h-[256px] overflow-hidden cursor-pointer rounded-lg"
           onMouseEnter={() => setHoverIdx(idx)}

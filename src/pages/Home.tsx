@@ -35,30 +35,38 @@ export default function Home() {
   return (
     <div className="w-full min-h-full box-border overflow-x-hidden">
       {/* Hero image */}
-      <div className="relative w-full h-[60vh] overflow-hidden">
+      <div className="relative w-screen h-[90vh] overflow-hidden">
         {homeImages.map((img, idx) => (
           <img
             key={idx}
             src={img.src}
             alt={`Slide ${idx}`}
             className={`
-              absolute top-0 left-0 w-full h-full object-cover object-top transition-opacity duration-1000 ease-in-out
+              absolute top-0 left-0 w-screen h-screen transition-opacity duration-1000 ease-in-out
               ${imageIdx === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'}
             `}
-            style={{ objectPosition: "10% 20%" }}
           />
         ))}
 
-        <div className="absolute flex justify-evenly left-1/2 bottom-0 -translate-x-1/2 mb-2 w-[128px] z-20">
+        <div className="absolute flex justify-evenly left-1/2 bottom-0 -translate-x-1/2 mb-2 w-[128px] z-[9999]">
           {homeImages.map((_, idx) => (
             <div
               key={idx}
               className={`
                 w-[12px] h-[12px] rounded-full transition-colors duration-500
-                ${imageIdx === idx ? 'bg-[#4e3d2f]' : 'bg-[#987c61]'}
+                ${imageIdx === idx ? 'bg-[#68594d]' : 'bg-[#eae0d6]'}
               `}
+              onClick={() => setImageIdx(idx)}
             />
           ))}
+        </div>
+
+        <div className="absolute inset-0 bg-black/50 flex justify-center items-center z-[999]">
+            <h1 className="text-[184px] font-[Cookie] text-white font-bold text-center z-[999]"
+            
+          >
+            Welcome to Just Nature
+          </h1>
         </div>
       </div>
 
